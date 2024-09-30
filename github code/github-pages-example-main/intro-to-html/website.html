@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRS Inspired Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <img src="irs-logo.png" alt="IRS Logo" class="logo-img">
+        </div>
+        <h2>Login</h2>
+        <form id="loginForm" onsubmit="setCookie(event)">
+            <div class="input-field">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-field">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="login-button">Login</button>
+        </form>
+    </div>
+
+    <script>
+        // Function to set a cookie
+        function setCookie(event) {
+            event.preventDefault();
+            var username = document.getElementById("username").value;
+            document.cookie = "username=" + username + "; path=/;";
+            alert("Cookie has been set!");
+        }
+
+        // Function to check if a cookie is set
+        window.onload = function() {
+            var username = getCookie("username");
+            if (username) {
+                alert("Welcome back, " + username + "!");
+            }
+        }
+
+        function getCookie(name) {
+            let cookieArr = document.cookie.split(";");
+            for(let i = 0; i < cookieArr.length; i++) {
+                let cookiePair = cookieArr[i].split("=");
+                if(name == cookiePair[0].trim()) {
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+            return null;
+        }
+    </script>
+</body>
+</html>
